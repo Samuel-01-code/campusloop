@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <title>CampusLoop — Your campus, connected</title>
+  <style>
+    :root {
+      --brand: #5145e5;
+      --ink: #20213a;
+      --muted: #777b91;
+      --line: #e9eaf2;
+      --bg: #f7f8fc;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    button, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .topbar {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      padding: 15px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .brand { font-size: 23px; font-weight: 850; letter-spacing: -1px; }
+    .brand span { color: var(--brand); }
+    .tagline { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .layout {
+      max-width: 1040px;
+      margin: auto;
+      padding: 18px 14px 40px;
+      display: grid;
+      grid-template-columns: 205px minmax(0, 1fr);
+      gap: 18px;
+    }
+    .panel, .post, .welcome {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .nav a {
+      display: block;
+      color: #45465f;
+      text-decoration: none;
+      padding: 11px 8px;
+      border-radius: 9px;
+      margin: 3px 0;
+    }
+    .nav a:hover { background: #f0efff; color: var(--brand); }
+    h1 { font-size: 25px; line-height: 1.2; margin: 0 0 8px; }
+    h2 { font-size: 16px; margin: 0 0 13px; }
+    p { line-height: 1.55; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .welcome {
+      color: white;
+      border: 0;
+      background: linear-gradient(125deg, #5145e5, #8873f5);
+      padding: 23px;
+    }
+    .welcome p { color: #eeebff; margin-bottom: 17px; }
+    .btn {
+      border: 0;
+      background: var(--brand);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .btn.light { background: white; color: var(--brand); }
+    .composer textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      resize: vertical;
+      min-height: 75px;
+      margin: 8px 0 10px;
+    }
+    .post-head { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 39px; height: 39px; border-radius: 50%;
+      background: #e9e7ff; color: var(--brand);
+      display: grid; place-items: center; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .post p { white-space: pre-wrap; }
+    .actions { display: flex; gap: 9px; flex-wrap: wrap; }
+    .action {
+      border: 1px solid var(--line);
+      background: white; padding: 8px 12px;
+      border-radius: 9px; color: #55566c;
+    }
+    .action.liked { color: var(--brand); background: #f0efff; }
+    .chip {
+      display: inline-block; background: #f0efff;
+      color: var(--brand); border-radius: 20px;
+      padding: 6px 10px; font-size: 12px; margin: 3px 2px 3px 0;
+    }
+    .opportunity {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .opportunity:last-child { border: 0; }
+    .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 15px; }
+    @media (max-width: 650px) {
+      .layout { display: block; padding: 12px; }
+      .sidebar { display: none; }
+      h1 { font-size: 23px; }
+      .welcome { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Campus<span>Loop</span> 🔵</div>
+    <div class="tagline">Your campus. Your community. Your opportunities.</div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel nav">
+        <h2>Explore CampusLoop</h2>
+        <a href="#home">🏠 Home feed</a>
+        <a href="#communities">👥 Communities</a>
+        <a href="#opportunities">🎯 Opportunities</a>
+        <a href="#create">✍️ Create a post</a>
+      </section>
+      <section class="panel">
+        <h2>Your campus</h2>
+        <p class="muted">Your university community will appear here.</p>
+        <span class="chip">Student life</span>
+        <span class="chip">Learning</span>
+        <span class="chip">Creativity</span>
+      </section>
+    </aside>
+
+    <section id="home">
+      <div class="welcome">
+        <h1>Big ideas start on campus.</h1>
+        <p>Meet students, discover opportunities, and share what you're creating.</p>
+        <button class="btn light" onclick="document.querySelector('#create textarea').focus()">
+          Share something
+        </button>
+      </div>
+
+      <section class="panel composer" id="create">
+        <h2>What's happening on your campus?</h2>
+        <form id="postForm">
+          <textarea id="postText" maxlength="500"
+            placeholder="Share an idea, question, achievement or campus update..."
+            required></textarea>
+          <button class="btn" type="submit">＋ Publish post</button>
+        </form>
+        <p class="muted">Prototype only: posts are temporary and stay in this page session.</p>
+      </section>
+
+      <div id="feed">
+        <article class="post">
+          <div class="post-head">
+            <div class="avatar">CL</div>
+            <div><strong>CampusLoop Team</strong><div class="muted">Welcome to the community</div></div>
+          </div>
+          <p>Welcome to CampusLoop! This is a place to connect with fellow students, discover opportunities, and share your ideas. What would you like to see here?</p>
+          <div class="actions">
+            <button class="action" onclick="likePost(this)">♡ Like <span>0</span></button>
+            <button class="action" onclick="alert('Comments will be added in a future version.')">💬 Comment</button>
+          </div>
+        </article>
+        <article class="post">
+          <div class="post-head">
+            <div class="avatar">ST</div>
+            <div><strong>Student Creator</strong><div class="muted">Sample student · Demo post</div></div>
+          </div>
+          <p>What new skill are you learning this semester? Let's share resources and help each other grow!</p>
+          <div class="actions">
+            <button class="action" onclick="likePost(this)">♡ Like <span>0</span></button>
+            <button class="action" onclick="alert('Comments will be added in a future version.')">💬 Comment</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside>
+      <section class="panel" id="communities">
+        <h2>Explore communities</h2>
+        <div><span class="chip">💻 Technology</span><span class="chip">📚 Academics</span></div>
+        <div><span class="chip">🎨 Creators</span><span class="chip">⚽ Sports</span></div>
+        <p class="muted">University and department communities are coming soon.</p>
+      </section>
+      <section class="panel" id="opportunities">
+        <h2>Opportunities</h2>
+        <div class="opportunity"><strong>🎓 Scholarships</strong><p class="muted">Discover funding for your education.</p></div>
+        <div class="opportunity"><strong>💼 Internships</strong><p class="muted">Explore career-building experiences.</p></div>
+        <div class="opportunity"><strong>🚀 Student projects</strong><p class="muted">Find people to build with.</p></div>
+        <p class="muted">These are categories, not verified live listings.</p>
+      </section>
+    </aside>
+  </main>
+
+  <div class="footer">CampusLoop · Built for students, open to the world.</div>
+
+  <script>
+    function likePost(button) {
+      const count = button.querySelector("span");
+      const liked = button.classList.toggle("liked");
+      count.textContent = Number(count.textContent) + (liked ? 1 : -1);
+      button.firstChild.textContent = liked ? "♥ Unlike " : "♡ Like ";
+    }
+
+    document.querySelector("#postForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const field = document.querySelector("#postText");
+      const message = field.value.trim();
+      if (!message) return;
+
+      const article = document.createElement("article");
+      article.className = "post";
+
+      const header = document.createElement("div");
+      header.className = "post-head";
+      header.innerHTML = '<div class="avatar">Y</div><div><strong>Your demo profile</strong><div class="muted">Just now · Demo post</div></div>';
+
+      const content = document.createElement("p");
+      content.textContent = message;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      actions.innerHTML = '<button class="action" onclick="likePost(this)">♡ Like <span>0</span></button>';
+
+      article.append(header, content, actions);
+      document.querySelector("#feed").prepend(article);
+      field.value = "";
+    });
+  </script>
+</body>
+</html>
