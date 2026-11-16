@@ -259,6 +259,22 @@
   // Make Supabase available to CampusLoop
   window.campusSupabase = supabase;
 
+async function testCampusLoopConnection() {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id')
+    .limit(1);
+
+  if (error) {
+    console.error('CampusLoop database test failed:', error.message);
+  } else {
+    console.log('CampusLoop database connected successfully!', data);
+  }
+}
+
+testCampusLoopConnection();
+
+
   console.log('CampusLoop Supabase connection initialized!');
 </script>
 </body>
