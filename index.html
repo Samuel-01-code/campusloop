@@ -242,6 +242,24 @@
       document.querySelector("#feed").prepend(article);
       field.value = "";
     });
-  </script>
+</script>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://wcxabgriihrqkidwwmtw.supabase.co/rest/v1/';
+
+  const SUPABASE_ANON_KEY = 'sb_publishable_D4cU53fjFFeP5joO8gpPzQ_gK6aVMi5';
+
+  const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  // Make Supabase available to CampusLoop
+  window.campusSupabase = supabase;
+
+  console.log('CampusLoop Supabase connection initialized!');
+</script>
 </body>
 </html>
